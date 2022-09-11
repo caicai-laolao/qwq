@@ -17,7 +17,13 @@ function App() {
       image.src = fileUrl;
       image.style.display = 'none';
       image.onload = () => {
-        ctx.drawImage(image, x, y, 240, 400);
+        ctx.drawImage(
+          image,
+          x,
+          y,
+          240 * window.devicePixelRatio,
+          (400 / 240) * 240 * window.devicePixelRatio
+        );
       };
       document.body.appendChild(image);
       t++;
@@ -87,7 +93,8 @@ function App() {
             drawImage(fileUrlList);
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
-            ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+
+            ctx.fillText(name, canvas.width, canvas.height);
           }}
         >
           生成图片
@@ -112,6 +119,8 @@ function App() {
           width: '480px',
           height: '640px',
         }}
+        width={480 * window.devicePixelRatio}
+        height={640 * window.devicePixelRatio}
       />
 
       <h4>图片预览</h4>
