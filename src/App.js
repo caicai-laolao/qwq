@@ -88,12 +88,11 @@ function App() {
         <button
           onClick={() => {
             drawImage(fileUrlList);
-
             setTimeout(() => {
               const canvas = document.getElementById('canvas');
               const ctx = canvas.getContext('2d');
               ctx.font = '80px serif';
-              ctx.fillStyle = 'red';
+              ctx.fillStyle = 'green';
               ctx.fillText(name, canvas.width / 2 - 120, canvas.height / 2);
             }, 200);
           }}
