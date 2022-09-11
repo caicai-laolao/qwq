@@ -9,30 +9,27 @@ function App() {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    let x = 0;
-    let y = 0;
-    let t = 0;
-    urlList.forEach((fileUrl) => {
-      const image = new Image(240, 400);
+    urlList.forEach((fileUrl, index) => {
+      const imgWidth = 150 * window.devicePixelRatio;
+      const imgHeight = 2.175 * imgWidth;
+      const image = new Image(imgWidth, imgHeight);
       image.src = fileUrl;
       image.style.display = 'none';
       image.onload = () => {
-        ctx.drawImage(
-          image,
-          x,
-          y,
-          240 * window.devicePixelRatio,
-          (400 / 240) * 240 * window.devicePixelRatio
-        );
+        if (index === 0) {
+          ctx.drawImage(image, 0, 0, imgWidth, imgHeight);
+        }
+        if (index === 1) {
+          ctx.drawImage(image, imgWidth, 0, imgWidth, imgHeight);
+        }
+        if (index === 2) {
+          ctx.drawImage(image, 0, imgHeight, imgWidth, imgHeight);
+        }
+        if (index === 3) {
+          ctx.drawImage(image, imgWidth, imgHeight, imgWidth, imgHeight);
+        }
       };
       document.body.appendChild(image);
-      t++;
-      if (t % 2 === 1) {
-        x = x + 65;
-      }
-      if (t % 2 === 0) {
-        y = y + 65;
-      }
     });
   };
   return (
@@ -91,10 +88,14 @@ function App() {
         <button
           onClick={() => {
             drawImage(fileUrlList);
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
 
-            ctx.fillText(name, canvas.width, canvas.height);
+            setTimeout(() => {
+              const canvas = document.getElementById('canvas');
+              const ctx = canvas.getContext('2d');
+              ctx.font = '80px serif';
+              ctx.fillStyle = 'red';
+              ctx.fillText(name, canvas.width / 2 - 120, canvas.height / 2);
+            }, 200);
           }}
         >
           生成图片
@@ -116,11 +117,11 @@ function App() {
         id="canvas"
         style={{
           border: '1px solid #ddd',
-          width: '480px',
-          height: '640px',
+          width: '300px',
+          height: '652px',
         }}
-        width={480 * window.devicePixelRatio}
-        height={640 * window.devicePixelRatio}
+        width={300 * window.devicePixelRatio}
+        height={652 * window.devicePixelRatio}
       />
 
       <h4>图片预览</h4>
