@@ -75,16 +75,6 @@ function App() {
           gap: 8,
         }}
       >
-        {fileUrlList.map((url) => {
-          return <img src={url} width="40px" key={url} alt="url" />;
-        })}
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          gap: 8,
-        }}
-      >
         <button
           onClick={() => {
             drawImage(fileUrlList);
@@ -112,18 +102,45 @@ function App() {
           下载图片
         </button>
       </div>
-      <canvas
-        id="canvas"
+      <div
         style={{
-          border: '1px solid #ddd',
-          width: '300px',
-          height: '652px',
+          display: 'flex',
+          gap: 8,
         }}
-        width={300 * window.devicePixelRatio}
-        height={652 * window.devicePixelRatio}
-      />
-
-      <h4>图片预览</h4>
+      >
+        <div>
+          <span
+            style={{
+              display: 'block',
+              marginBottom: 12,
+            }}
+          >
+            预览图片:
+          </span>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              width: 210,
+              flexWrap: 'wrap',
+            }}
+          >
+            {fileUrlList.map((url) => {
+              return <img src={url} width="100px" key={url} alt="url" />;
+            })}
+          </div>
+        </div>
+        <canvas
+          id="canvas"
+          style={{
+            border: '1px solid #ddd',
+            width: '300px',
+            height: '652px',
+          }}
+          width={300 * window.devicePixelRatio}
+          height={652 * window.devicePixelRatio}
+        />{' '}
+      </div>
     </div>
   );
 }
