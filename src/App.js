@@ -1,22 +1,59 @@
-import "./App.css";
-import { useState, useEffect } from "react";
+import './App.css';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState();
-  const [name, setName] = useState("");
-  const [fileurlList, setFileUrlList] = useState([]);
-  return (
-    <div>
-      输入了：{name}
-      <input
-        onChange={(event) => {
-          const canvas = document.getElementById("canvas");
-          const ctx = canvas.getContext("2d");
-          ctx.fillStyle = "black";
+  const [name, setName] = useState('许卯红');
+  const [fileUrlList, setFileUrlList] = useState([]);
 
-          ctx.fillText(event.target.value, 100, 100);
-        }}
-      ></input>
+  const drawImage = (urlList) => {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    urlList.forEach((fileUrl, index) => {
+      const imgWidth = 150 * window.devicePixelRatio;
+      const imgHeight = 2.175 * imgWidth;
+      const image = new Image(imgWidth, imgHeight);
+      image.src = fileUrl;
+      image.style.display = 'none';
+      image.onload = () => {
+        if (index === 0) {
+          ctx.drawImage(image, 0, 0, imgWidth, imgHeight);
+        }
+        if (index === 1) {
+          ctx.drawImage(image, imgWidth, 0, imgWidth, imgHeight);
+        }
+        if (index === 2) {
+          ctx.drawImage(image, 0, imgHeight, imgWidth, imgHeight);
+        }
+        if (index === 3) {
+          ctx.drawImage(image, imgWidth, imgHeight, imgWidth, imgHeight);
+        }
+      };
+      document.body.appendChild(image);
+    });
+  };
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        alignItems: 'center',
+      }}
+    >
+      <div>
+        姓名:
+        <input
+          value={name}
+          placeholder="请输入姓名"
+          onChange={(event) => {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillText(event.target.value, 100, 100);
+            setName(event.target.value);
+          }}
+        />
+      </div>
       <input
         multiple
         type="file"
@@ -24,59 +61,86 @@ function App() {
         name="avatar"
         accept="image/png, image/jpeg>"
         onChange={(event) => {
-          let x = -65;
-          let y = 0;
-          let t = 0;
           let array = [];
           for (const file of event.target.files) {
             const fileUrl = URL.createObjectURL(file);
             array.push(fileUrl);
-            const canvas = document.getElementById("canvas");
-            const ctx = canvas.getContext("2d");
-            const image = new Image(50, 50);
-            image.src = fileUrl;
-            image.onload = () => {
-              ctx.drawImage(image, x, y, 50, 50);
-            };
-            document.body.appendChild(image);
-
-            t++;
-            if (t % 2 === 1) {
-              x = x + 65;
-            }
-            if (t % 2 === 0) {
-              y = y + 65;
-            }
           }
-
           setFileUrlList(array);
         }}
-      ></input>
-      {fileurlList.map((url) => {
-        return <img src={url} width="200px" />;
-      })}
-      <img src={name} />
-      <canvas
-        id="canvas"
+      />
+      <div
         style={{
-          border: "2px solid #ddd",
-          width: "300px",
-          height: "300px",
-        }}
-      ></canvas>
-      <button
-        onClick={() => {
-          const el = document.createElement("a");
-          const canvas = document.getElementById("canvas");
-          el.href = canvas.toDataURL();
-          el.download = "文件名称";
-          const event = new MouseEvent("click");
-          el.dispatchEvent(event);
+          display: 'flex',
+          gap: 8,
         }}
       >
-        {" "}
-        " sadsadsad"
-      </button>
+        <button
+          onClick={() => {
+            drawImage(fileUrlList);
+            setTimeout(() => {
+              const canvas = document.getElementById('canvas');
+              const ctx = canvas.getContext('2d');
+              ctx.font = '80px serif';
+              ctx.fillStyle = 'green';
+              ctx.fillText(name, canvas.width / 2 - 120, canvas.height / 2);
+            }, 200);
+          }}
+        >
+          生成图片
+        </button>
+        <button
+          onClick={() => {
+            const el = document.createElement('a');
+            const canvas = document.getElementById('canvas');
+            el.href = canvas.toDataURL();
+            el.download = '文件名称';
+            const event = new MouseEvent('click');
+            el.dispatchEvent(event);
+          }}
+        >
+          下载图片
+        </button>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          gap: 8,
+        }}
+      >
+        <div>
+          <span
+            style={{
+              display: 'block',
+              marginBottom: 12,
+            }}
+          >
+            预览图片:
+          </span>
+          <div
+            style={{
+              display: 'flex',
+              gap: 8,
+              width: 210,
+              flexWrap: 'wrap',
+            }}
+          >
+            {fileUrlList.map((url) => {
+              return <img src={url} width="100px" key={url} alt="url" />;
+            })}
+          </div>
+        </div>
+        <canvas
+          id="canvas"
+          style={{
+            border: '1px solid #ddd',
+            width: '300px',
+            height: '652px',
+          }}
+          width={300 * window.devicePixelRatio}
+          height={652 * window.devicePixelRatio}
+        />
+      </div>
     </div>
   );
 }
