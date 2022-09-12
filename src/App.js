@@ -139,7 +139,7 @@ function App() {
           }}
           width={300 * window.devicePixelRatio}
           height={652 * window.devicePixelRatio}
-        />{' '}
+        />
       </div>
     </div>
   );
