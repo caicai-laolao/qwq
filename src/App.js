@@ -1,21 +1,21 @@
-import './App.css';
-import { useState } from 'react';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
   // 应该有个默认名字
-  const [name, setName] = useState('许卯红');
+  const [name, setName] = useState("许卯红");
   const [fileUrlList, setFileUrlList] = useState([]);
 
   const drawImage = (urlList) => {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
     urlList.forEach((fileUrl, index) => {
       const imgWidth = 150 * window.devicePixelRatio;
       const imgHeight = 2.175 * imgWidth;
       const image = new Image(imgWidth, imgHeight);
       image.src = fileUrl;
-      image.style.display = 'none';
+      image.style.display = "none";
       image.onload = () => {
         if (index === 0) {
           ctx.drawImage(image, 0, 0, imgWidth, imgHeight);
@@ -36,10 +36,10 @@ function App() {
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         gap: 16,
-        alignItems: 'center',
+        alignItems: "center",
       }}
     >
       <div>
@@ -48,8 +48,8 @@ function App() {
           value={name}
           placeholder="请输入姓名"
           onChange={(event) => {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
             ctx.fillText(event.target.value, 100, 100);
             setName(event.target.value);
           }}
@@ -72,7 +72,7 @@ function App() {
       />
       <div
         style={{
-          display: 'flex',
+          display: "flex",
           gap: 8,
         }}
       >
@@ -80,39 +80,33 @@ function App() {
           onClick={() => {
             drawImage(fileUrlList);
             setTimeout(() => {
-              const canvas = document.getElementById('canvas');
-              const ctx = canvas.getContext('2d');
-              ctx.font = '80px serif';
-              ctx.fillStyle = 'green';
+              const canvas = document.getElementById("canvas");
+              const ctx = canvas.getContext("2d");
+              ctx.font = "80px serif";
+              ctx.fillStyle = "green";
               ctx.fillText(name, canvas.width / 2 - 120, canvas.height / 2);
             }, 200);
-          }}
-        >
-          生成图片
-        </button>
-        <button
-          onClick={() => {
-            const el = document.createElement('a');
-            const canvas = document.getElementById('canvas');
+            const el = document.createElement("a");
+            const canvas = document.getElementById("canvas");
             el.href = canvas.toDataURL();
-            el.download = '文件名称';
-            const event = new MouseEvent('click');
+            el.download = "文件名称";
+            const event = new MouseEvent("click");
             el.dispatchEvent(event);
           }}
         >
-          下载图片
+          生成并下载图片
         </button>
       </div>
       <div
         style={{
-          display: 'flex',
+          display: "flex",
           gap: 8,
         }}
       >
         <div>
           <span
             style={{
-              display: 'block',
+              display: "block",
               marginBottom: 12,
             }}
           >
@@ -120,10 +114,10 @@ function App() {
           </span>
           <div
             style={{
-              display: 'flex',
+              display: "flex",
               gap: 8,
               width: 210,
-              flexWrap: 'wrap',
+              flexWrap: "wrap",
             }}
           >
             {fileUrlList.map((url) => {
@@ -134,9 +128,9 @@ function App() {
         <canvas
           id="canvas"
           style={{
-            border: '1px solid #ddd',
-            width: '300px',
-            height: '652px',
+            border: "1px solid #ddd",
+            width: "300px",
+            height: "652px",
           }}
           width={300 * window.devicePixelRatio}
           height={652 * window.devicePixelRatio}
