@@ -85,16 +85,18 @@ function App() {
               ctx.font = "80px serif";
               ctx.fillStyle = "green";
               ctx.fillText(name, canvas.width / 2 - 120, canvas.height / 2);
-            }, 200);
-            const el = document.createElement("a");
-            const canvas = document.getElementById("canvas");
-            el.href = canvas.toDataURL();
-            el.download = "文件名称";
-            const event = new MouseEvent("click");
-            el.dispatchEvent(event);
+            }, 150);
+            setTimeout(() => {
+              const el = document.createElement("a");
+              const canvas = document.getElementById("canvas");
+              el.href = canvas.toDataURL();
+              el.download = "文件名称";
+              const event = new MouseEvent("click");
+              el.dispatchEvent(event);
+            }, 300);
           }}
         >
-          生成并下载图片
+          获取图片
         </button>
       </div>
       <div
