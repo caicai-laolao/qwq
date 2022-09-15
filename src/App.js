@@ -40,11 +40,15 @@ function App() {
         flexDirection: "column",
         gap: 16,
         alignItems: "center",
+        fontSize: 30,
       }}
     >
       <div>
         姓名:
         <input
+          style={{
+            fontSize: 30,
+          }}
           value={name}
           placeholder="请输入姓名"
           onChange={(event) => {
@@ -56,11 +60,13 @@ function App() {
         />
       </div>
       <input
+        style={{
+          fontSize: 25,
+        }}
         multiple
         type="file"
         id="avatar"
         name="avatar"
-        accept="image/png, image/jpeg>"
         onChange={(event) => {
           let array = [];
           for (const file of event.target.files) {
@@ -77,6 +83,9 @@ function App() {
         }}
       >
         <button
+          style={{
+            fontSize: 30,
+          }}
           onClick={() => {
             drawImage(fileUrlList);
             setTimeout(() => {
@@ -102,6 +111,7 @@ function App() {
       <div
         style={{
           display: "flex",
+
           gap: 8,
         }}
       >
