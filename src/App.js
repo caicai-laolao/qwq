@@ -36,18 +36,18 @@ function App() {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
+        left: "300",
+
         gap: 16,
         alignItems: "center",
-        fontSize: 30,
+        fontSize: 25,
       }}
     >
       <div>
         姓名:
         <input
           style={{
-            fontSize: 30,
+            fontSize: 25,
           }}
           value={name}
           placeholder="请输入姓名"
@@ -84,7 +84,7 @@ function App() {
       >
         <button
           style={{
-            fontSize: 30,
+            fontSize: 25,
           }}
           onClick={() => {
             drawImage(fileUrlList);
